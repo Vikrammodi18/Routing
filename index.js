@@ -20,12 +20,20 @@ app.get("/:username",(req,res)=>{
     res.render('user',{uName})
     
 })
+
 app.get("/ig/:username",(req,res)=>{
-    const{username} = req.params
-    let followers = ["rahul","abhi","Tanya","Mohan"]
-    // console.log(username)
-    res.render("insta",{username,followers})
+    const instaData = require('./data.json')
+    let {username} = req.params
+    data = instaData[username]
+    if(data){
+        res.render("insta",{data})
+
+    }else{
+        res.render("error")
+    }
 })
+
+
 app.listen(port,()=>{
     console.log(`app is running at ${port}`)
 })
